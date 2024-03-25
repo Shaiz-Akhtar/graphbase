@@ -2,6 +2,10 @@ openapi: 3.0.0
 info:
   title: Bitcoin Transaction APIs
   version: 1.0.0
+servers:
+  - url: https://blockchain.info
+    description: Blockchain.info API server
+
 paths:
   /unconfirmed-transactions:
     get:
