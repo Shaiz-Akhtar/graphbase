@@ -1,0 +1,157 @@
+openapi: 3.0.0
+info:
+  title: Bitcoin Transaction APIs
+  version: 1.0.0
+paths:
+  /unconfirmed-transactions:
+    get:
+      summary: Get unconfirmed Bitcoin transactions
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  txs:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Transaction'
+
+components:
+  schemas:
+    Transaction:
+      type: object
+      properties:
+        hash:
+          type: string
+          description: The transaction hash
+        ver:
+          type: integer
+          description: Transaction version
+        vin_sz:
+          type: integer
+          description: Number of inputs
+        vout_sz:
+          type: integer
+          description: Number of outputs
+        size:
+          type: integer
+          description: Transaction size in bytes
+        weight:
+          type: integer
+          description: Transaction weight
+        fee:
+          type: integer
+          description: Transaction fee in satoshis
+        relayed_by:
+          type: string
+          description: IP address of the node that relayed the transaction
+        lock_time:
+          type: integer
+          description: Transaction lock time
+        tx_index:
+          type: integer
+          description: Transaction index
+        double_spend:
+          type: boolean
+          description: Indicates if the transaction is a double spend
+        time:
+          type: integer
+          description: Transaction timestamp
+        block_index:
+          type: integer
+          description: Index of the block containing the transaction
+        block_height:
+          type: integer
+          description: Height of the block containing the transaction
+        inputs:
+          type: array
+          items:
+            type: object
+            properties:
+              sequence:
+                type: integer
+                description: Input sequence number
+              witness:
+                type: string
+                description: Input witness data
+              script:
+                type: string
+                description: Input script
+              index:
+                type: integer
+                description: Index of the input
+              prev_out:
+                type: object
+                properties:
+                  addr:
+                    type: string
+                    description: Previous output address
+                  n:
+                    type: integer
+                    description: Previous output index
+                  script:
+                    type: string
+                    description: Previous output script
+                  spending_outpoints:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        n:
+                          type: integer
+                          description: Spending output index
+                        tx_index:
+                          type: integer
+                          description: Transaction index
+                  spent:
+                    type: boolean
+                    description: Indicates if the output is spent
+                  tx_index:
+                    type: integer
+                    description: Transaction index
+                  type:
+                    type: integer
+                    description: Output type
+                  value:
+                    type: integer
+                    description: Output value in satoshis
+        out:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: integer
+                description: Output type
+              spent:
+                type: boolean
+                description: Indicates if the output is spent
+              value:
+                type: integer
+                description: Output value in satoshis
+              spending_outpoints:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    n:
+                      type: integer
+                      description: Spending output index
+                    tx_index:
+                      type: integer
+                      description: Transaction index
+              n:
+                type: integer
+                description: Output index
+              tx_index:
+                type: integer
+                description: Transaction index
+              script:
+                type: string
+                description: Output script
+              addr:
+                type: string
+                description: Output address
