@@ -1,18 +1,17 @@
 openapi: 3.0.0
 info:
-  title: Bitcoin Transaction APIs
+  title: Blockchain.info Unconfirmed Transactions API
   version: 1.0.0
 servers:
-  - url: https://blockchain.info/unconfirmed-transactions?format=json
-    description: Blockchain.info API server
-
+  - url: https://blockchain.info
 paths:
   /unconfirmed-transactions:
     get:
-      summary: Get unconfirmed Bitcoin transactions
+      summary: Get unconfirmed transactions
+      description: Retrieves a list of unconfirmed transactions from the Blockchain.info API.
       responses:
         '200':
-          description: Successful response
+          description: A list of unconfirmed transactions.
           content:
             application/json:
               schema:
@@ -21,143 +20,132 @@ paths:
                   txs:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Transaction'
-
-components:
-  schemas:
-    txs:
-      type: object
-      required:
-        - hash
-      properties:
-        hash:
-          type: string
-          description: The transaction hash
-        ver:
-          type: integer
-          description: Transaction version
-        vin_sz:
-          type: integer
-          description: Number of inputs
-        vout_sz:
-          type: integer
-          description: Number of outputs
-        size:
-          type: integer
-          description: Transaction size in bytes
-        weight:
-          type: integer
-          description: Transaction weight
-        fee:
-          type: integer
-          description: Transaction fee in satoshis
-        relayed_by:
-          type: string
-          description: IP address of the node that relayed the transaction
-        lock_time:
-          type: integer
-          description: Transaction lock time
-        tx_index:
-          type: integer
-          description: Transaction index
-        double_spend:
-          type: boolean
-          description: Indicates if the transaction is a double spend
-        time:
-          type: integer
-          description: Transaction timestamp (could be string for ISO 8601 format)
-        block_index:
-          type: integer
-          description: Index of the block containing the transaction
-        block_height:
-          type: integer
-          description: Height of the block containing the transaction
-        inputs:
-          type: array
-          items:
-            type: object
-            properties:
-              sequence:
-                type: integer
-                description: Input sequence number
-              witness:
-                type: string
-                description: Input witness data
-              script:
-                type: string
-                description: Input script
-              index:
-                type: integer
-                description: Index of the input
-              prev_out:
-                type: object
-                properties:
-                  addr:
-                    type: string
-                    description: Previous output address
-                  n:
-                    type: integer
-                    description: Previous output index
-                  script:
-                    type: string
-                    description: Previous output script
-                  spending_outpoints:
-                    type: array
-                    items:
                       type: object
                       properties:
-                        n:
+                        hash:
+                          type: string
+                          description: The hash of the transaction.
+                        ver:
                           type: integer
-                          description: Spending output index
+                          description: Transaction version.
+                        vin_sz:
+                          type: integer
+                          description: The number of inputs.
+                        vout_sz:
+                          type: integer
+                          description: The number of outputs.
+                        size:
+                          type: integer
+                          description: Transaction size in bytes.
+                        weight:
+                          type: integer
+                          description: Transaction weight.
+                        fee:
+                          type: integer
+                          description: Transaction fee.
+                        relayed_by:
+                          type: string
+                          description: IP address of the node that relayed the transaction.
+                        lock_time:
+                          type: integer
+                          description: Lock time.
                         tx_index:
                           type: integer
-                          description: Transaction index
-                  spent:
-                    type: boolean
-                    description: Indicates if the output is spent
-                  tx_index:
-                    type: integer
-                    description: Transaction index
-                  type:
-                    type: integer
-                    description: Output type
-                  value:
-                    type: integer
-                    description: Output value in satoshis
-        out:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: integer
-                description: Output type
-              spent:
-                type: boolean
-                description: Indicates if the output is spent
-              value:
-                type: integer
-                description: Output value in satoshis
-              spending_outpoints:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    n:
-                      type: integer
-                      description: Spending output index
-                    tx_index:
-                      type: integer
-                      description: Transaction index
-              n:
-                type: integer
-                description: Output index
-              tx_index:
-                type: integer
-                description: Transaction index
-              script:
-                type: string
-                description: Output script
-              addr:
-                type: string
-                description: Output address
+                          description: Transaction index.
+                        double_spend:
+                          type: boolean
+                          description: Indicates if the transaction is a double spend.
+                        time:
+                          type: integer
+                          description: Time of transaction.
+                        block_index:
+                          type: integer
+                          description: Block index.
+                        block_height:
+                          type: integer
+                          description: Block height.
+                        inputs:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              sequence:
+                                type: integer
+                                description: Sequence number.
+                              witness:
+                                type: string
+                                description: Witness data.
+                              script:
+                                type: string
+                                description: Script.
+                              index:
+                                type: integer
+                                description: Index.
+                              prev_out:
+                                type: object
+                                properties:
+                                  addr:
+                                    type: string
+                                    description: Address.
+                                  n:
+                                    type: integer
+                                    description: N.
+                                  script:
+                                    type: string
+                                    description: Script.
+                                  spending_outpoints:
+                                    type: array
+                                    items:
+                                      type: object
+                                    description: Spending outpoints.
+                                  spent:
+                                    type: boolean
+                                    description: Indicates if the output is spent.
+                                  tx_index:
+                                    type: integer
+                                    description: Transaction index.
+                                  type:
+                                    type: integer
+                                    description: Output type.
+                                  value:
+                                    type: integer
+                                    description: Output value.
+                        out:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              type:
+                                type: integer
+                                description: Output type.
+                              spent:
+                                type: boolean
+                                description: Indicates if the output is spent.
+                              value:
+                                type: integer
+                                description: Output value.
+                              spending_outpoints:
+                                type: array
+                                items:
+                                  type: object
+                                description: Spending outpoints.
+                              n:
+                                type: integer
+                                description: N.
+                              tx_index:
+                                type: integer
+                                description: Transaction index.
+                              script:
+                                type: string
+                                description: Script.
+                              addr:
+                                type: string
+                                description: Address.
+      parameters:
+        - name: format
+          in: query
+          description: Response format (json by default).
+          required: false
+          schema:
+            type: string
+            default: json
