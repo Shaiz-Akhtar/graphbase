@@ -3,7 +3,7 @@ info:
   title: Bitcoin Transaction APIs
   version: 1.0.0
 servers:
-  - url: https://blockchain.info
+  - url: https://blockchain.info/unconfirmed-transactions?format=json
     description: Blockchain.info API server
 
 paths:
@@ -27,6 +27,8 @@ components:
   schemas:
     Transaction:
       type: object
+      required:
+        - hash
       properties:
         hash:
           type: string
@@ -63,7 +65,7 @@ components:
           description: Indicates if the transaction is a double spend
         time:
           type: integer
-          description: Transaction timestamp
+          description: Transaction timestamp (could be string for ISO 8601 format)
         block_index:
           type: integer
           description: Index of the block containing the transaction
